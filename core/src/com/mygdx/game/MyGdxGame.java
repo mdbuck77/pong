@@ -17,11 +17,10 @@ public class MyGdxGame extends ApplicationAdapter {
   private static final int BALL_DIMENSION = 16;
 
   private int graphicsWidth;
-  private int graphicsHeight;
 
   private enum Direction {
     LEFT,
-    RIGHT;
+    RIGHT
   }
 
   private OrthographicCamera orthographicCamera;
@@ -41,18 +40,18 @@ public class MyGdxGame extends ApplicationAdapter {
 
   @Override
   public void create() {
-    player1 = new Player(Input.Keys.W, Input.Keys.S, 0, 0);
+    graphicsWidth = Gdx.graphics.getWidth();
+    int graphicsHeight = Gdx.graphics.getHeight();
+
+    player1 = new Player(Input.Keys.W, Input.Keys.S, graphicsHeight, 0, 0);
 
     Gdx.input.setInputProcessor(new InputMultiplexer(player1));
 
-    graphicsWidth = Gdx.graphics.getWidth();
-    graphicsHeight = Gdx.graphics.getHeight();
-
     this.orthographicCamera = new OrthographicCamera(graphicsWidth, graphicsHeight);
-    this.orthographicCamera.translate(graphicsWidth / 2, graphicsHeight / 2);
+    this.orthographicCamera.translate(graphicsWidth / 2f, graphicsHeight / 2f);
 
-    this.x = graphicsWidth / 2 - BALL_DIMENSION / 2;
-    this.y = graphicsHeight / 2 - BALL_DIMENSION / 2;
+    this.x = graphicsWidth / 2f - BALL_DIMENSION / 2f;
+    this.y = graphicsHeight / 2f - BALL_DIMENSION / 2f;
 
     final Pixmap ball = ball();
     this.ballTexture = new Texture(ball);
