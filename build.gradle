@@ -16,8 +16,6 @@ buildscript {
 }
 
 allprojects {
-    apply plugin: "eclipse"
-
     version = '1.0'
     ext {
         appName = "my-gdx-game"
