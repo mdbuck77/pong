@@ -4,90 +4,31 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.Timer;
 
 public class MyGdxGame extends ApplicationAdapter {
-  private static final int BALL_DIMENSION = 16;
-
-  private int graphicsWidth;
-
-  private enum Direction {
-    LEFT,
-    RIGHT
-  }
-
   private OrthographicCamera orthographicCamera;
-
   private SpriteBatch batch;
-
-  private Texture ballTexture;
-  private Sprite sprite;
-
-  // ball stuff
-  private float x;
-  private float y;
-  private Direction direction = Direction.LEFT;
-
-  // player 1
+  private Ball ball;
   private Player player1;
 
   @Override
   public void create() {
-    graphicsWidth = Gdx.graphics.getWidth();
+    int graphicsWidth = Gdx.graphics.getWidth();
     int graphicsHeight = Gdx.graphics.getHeight();
 
-    player1 = new Player(Input.Keys.W, Input.Keys.S, graphicsHeight, 0, 0);
+    player1 = new Player(Input.Keys.W, Input.Keys.S, graphicsHeight);
 
     Gdx.input.setInputProcessor(new InputMultiplexer(player1));
 
     this.orthographicCamera = new OrthographicCamera(graphicsWidth, graphicsHeight);
     this.orthographicCamera.translate(graphicsWidth / 2f, graphicsHeight / 2f);
 
-    this.x = graphicsWidth / 2f - BALL_DIMENSION / 2f;
-    this.y = graphicsHeight / 2f - BALL_DIMENSION / 2f;
-
-    final Pixmap ball = ball();
-    this.ballTexture = new Texture(ball);
-    ball.dispose();
-
-    this.sprite = new Sprite(this.ballTexture);
+    this.ball = new Ball(graphicsWidth, graphicsHeight);
 
     this.batch = new SpriteBatch();
-
-    Timer.schedule(new Timer.Task() {
-      @Override
-      public void run() {
-        switch (direction) {
-          case LEFT:
-            if (x == 0) {
-              direction = Direction.RIGHT;
-              x = 0;
-            } else {
-              x = x - 4;
-            }
-            break;
-
-          case RIGHT:
-            if (x >= graphicsWidth - sprite.getWidth()) {
-              direction = Direction.LEFT;
-              x = graphicsWidth - sprite.getWidth();
-            } else {
-              x = x + 4;
-            }
-            break;
-          default:
-            throw new UnsupportedOperationException(String.valueOf(direction));
-        }
-        sprite.setPosition(x, y);
-      }
-    }, 0, 0.1f);
   }
 
   @Override
@@ -102,7 +43,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
     batch.begin();
 
-    sprite.draw(this.batch);
+    ball.draw(this.batch);
     player1.draw(this.batch);
 
     batch.end();
@@ -111,13 +52,6 @@ public class MyGdxGame extends ApplicationAdapter {
   @Override
   public void dispose() {
     batch.dispose();
-    ballTexture.dispose();
-  }
-
-  private static Pixmap ball() {
-    final Pixmap pixmap = new Pixmap(BALL_DIMENSION, BALL_DIMENSION, Pixmap.Format.RGB888);
-    pixmap.setColor(Color.WHITE);
-    pixmap.fill();
-    return pixmap;
+    this.ball.dispose();
   }
 }

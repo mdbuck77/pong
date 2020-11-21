@@ -37,17 +37,14 @@ public final class Player implements InputProcessor {
 	private final int maxY;
 
 	private Direction direction;
-	private int x;
-	private int y;
 
-	public Player(int upKey, int dnKey, int screenHeight, int x, int y) {
+	public Player(int upKey, int dnKey, int screenHeight) {
 		this.upKey = upKey;
 		this.dnKey = dnKey;
 		this.maxY = screenHeight - TEXTURE.getHeight();
 		this.direction = Direction.NEUTRAL;
-		this.x = x;
-		this.y = y;
 		this.sprite = new Sprite(TEXTURE);
+		this.sprite.setY(screenHeight / 2f - TEXTURE.getHeight() / 2f);
 	}
 
 	public void draw(final SpriteBatch batch) {
