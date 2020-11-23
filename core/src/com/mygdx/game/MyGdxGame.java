@@ -19,14 +19,15 @@ public class MyGdxGame extends ApplicationAdapter {
     int graphicsWidth = Gdx.graphics.getWidth();
     int graphicsHeight = Gdx.graphics.getHeight();
 
-    player1 = new Player(Input.Keys.W, Input.Keys.S, graphicsHeight);
+    this.player1 = new Player(Input.Keys.W, Input.Keys.S, graphicsHeight);
 
     Gdx.input.setInputProcessor(new InputMultiplexer(player1));
 
     this.orthographicCamera = new OrthographicCamera(graphicsWidth, graphicsHeight);
     this.orthographicCamera.translate(graphicsWidth / 2f, graphicsHeight / 2f);
 
-    this.ball = new Ball(graphicsWidth, graphicsHeight);
+    final World world = new World(0, 0, graphicsWidth - 1, graphicsHeight - 1, this.player1);
+    this.ball = new Ball(world, graphicsWidth, graphicsHeight);
 
     this.batch = new SpriteBatch();
   }
@@ -51,7 +52,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
   @Override
   public void dispose() {
-    batch.dispose();
+    this.player1.dispose();
     this.ball.dispose();
   }
 }

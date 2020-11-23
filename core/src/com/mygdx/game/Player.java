@@ -6,23 +6,24 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 
 public final class Player implements InputProcessor {
 	private static final int PLAYER_WIDTH = 16;
 	private static final int PLAYER_HEIGHT = 64;
 	private static final int PLAYER_STEP = 7;
 
-	private static final Pixmap PIXMAP = new Pixmap(PLAYER_WIDTH, PLAYER_HEIGHT, Pixmap.Format.RGB888);
-
+	private static final Texture TEXTURE;
 	static {
-		PIXMAP.setColor(Color.WHITE);
-		PIXMAP.fill();
+		final Pixmap pixmap = new Pixmap(PLAYER_WIDTH, PLAYER_HEIGHT, Pixmap.Format.RGB888);
+		pixmap.setColor(Color.WHITE);
+		pixmap.fill();
+		TEXTURE = new Texture(pixmap);
+		pixmap.dispose();
 	}
 
-	private static final Texture TEXTURE = new Texture(PIXMAP);
-
-	static {
-		PIXMAP.dispose();
+	public Rectangle boundingRectangle() {
+		return this.sprite.getBoundingRectangle();
 	}
 
 	private enum Direction {
