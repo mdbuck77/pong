@@ -24,8 +24,6 @@ public final class World {
 
 		final Rectangle playerBounds = player.boundingRectangle();
 
-		final float ballDX = ball.dx();
-
 		if (ballBoundingRectangle.overlaps(playerBounds)) {
 			// left player
 
@@ -53,9 +51,11 @@ public final class World {
 			ball.setPosition(playerBounds.x + playerBounds.width / 2, ballBoundingRectangle.y);
 
 		} else if (ballBoundingRectangle.x + ballBoundingRectangle.getWidth() - 1 > this.maxX) {
-			ball.dx(-ballDX);
+			ball.dx(-ball.dx());
+			ball.setPosition(this.maxX - playerBounds.width + ball.dx(), ballBoundingRectangle.y);
 		} else if (ballBoundingRectangle.x < this.minX) {
-			ball.dx(-ballDX);
+			ball.dx(-ball.dx());
+			ball.setPosition(this.minX + ball.dx(), ballBoundingRectangle.y);
 		} else if (ballBoundingRectangle.y >= this.maxY) {
 			ball.dy(-ball.dy());
 		} else if (ballBoundingRectangle.y <= this.minY) {

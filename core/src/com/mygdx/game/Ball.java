@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Timer;
 
 public final class Ball {
-	private static final float BALL_DIMENSION = 8;
+	private static final float BALL_DIMENSION = 10;
 	public static final int BALL_STEP = 8;
 
 	private static final Pixmap BALL_PIXMAP;
@@ -33,6 +33,8 @@ public final class Ball {
 	private final Sprite sprite;
 	private final World world;
 
+	private float x;
+	private float y;
 	private float dy;
 	private float dx;
 
@@ -40,8 +42,8 @@ public final class Ball {
 		this.world = world;
 		this.sprite = new Sprite(BALL_TEXTURE);
 
-		sprite.setX(graphicsWidth / 2f - BALL_DIMENSION / 2f);
-		sprite.setY(graphicsHeight / 2f - BALL_DIMENSION / 2f);
+		this.x = (graphicsWidth / 2f - BALL_DIMENSION / 2f);
+		this.y = (graphicsHeight / 2f - BALL_DIMENSION / 2f);
 
 		this.dx = -BALL_STEP;
 		this.dy = 0;
@@ -50,24 +52,23 @@ public final class Ball {
 
 			@Override
 			public void run() {
-				float x = sprite.getX();
-				float y = sprite.getY();
-				x += Ball.this.dx;
-				y += Ball.this.dy;
-				Ball.this.world.setPosition(Ball.this, x, y);
+				Ball.this.world.setPosition(Ball.this, Ball.this.x + Ball.this.dx, Ball.this.y + Ball.this.dy);
 			}
 		}, 0, 0.1f);
 	}
 
 	public void setPosition(float x, float y) {
-		this.sprite.setPosition(x, y);
+		this.x = x;
+		this.y = y;
 	}
 
 	public Rectangle boundingRectangle() {
+		this.sprite.setPosition(this.x, this.y);
 		return this.sprite.getBoundingRectangle();
 	}
 
 	public void draw(final SpriteBatch spriteBatch) {
+		this.sprite.setPosition(this.x, this.y);
 		sprite.draw(spriteBatch);
 	}
 

@@ -85,7 +85,7 @@ public final class Player implements InputProcessor {
 		return false;
 	}
 
-	public void doit() {
+	public void moveIt() {
 		switch (this.direction) {
 			case UP:
 				keyDown(this.upKey);

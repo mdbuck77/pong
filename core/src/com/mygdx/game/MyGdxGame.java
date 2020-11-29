@@ -34,7 +34,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
   @Override
   public void render() {
-    this.player1.doit();
+    this.player1.moveIt();
 
     Gdx.gl.glClearColor(0, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
