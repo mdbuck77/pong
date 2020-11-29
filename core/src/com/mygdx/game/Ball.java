@@ -9,8 +9,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Timer;
 
 public final class Ball {
-	private static final float BALL_DIMENSION = 16;
-	private static final int BALL_STEP = 8;
+	private static final float BALL_DIMENSION = 8;
+	public static final int BALL_STEP = 8;
 
 	private static final Pixmap BALL_PIXMAP;
 
@@ -18,6 +18,9 @@ public final class Ball {
 		BALL_PIXMAP = new Pixmap((int) BALL_DIMENSION, (int) BALL_DIMENSION, Pixmap.Format.RGB888);
 		BALL_PIXMAP.setColor(Color.WHITE);
 		BALL_PIXMAP.fill();
+
+		// for debugging
+//		BALL_PIXMAP.drawPixel(0, 0, Color.RED.toIntBits());
 	}
 
 	private static final Texture BALL_TEXTURE;

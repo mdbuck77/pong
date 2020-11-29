@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
 public final class Player implements InputProcessor {
-	private static final int PLAYER_WIDTH = 16;
+	private static final int PLAYER_WIDTH = 10;
 	private static final int PLAYER_HEIGHT = 64;
 	private static final int PLAYER_STEP = 7;
 
@@ -18,6 +18,16 @@ public final class Player implements InputProcessor {
 		final Pixmap pixmap = new Pixmap(PLAYER_WIDTH, PLAYER_HEIGHT, Pixmap.Format.RGB888);
 		pixmap.setColor(Color.WHITE);
 		pixmap.fill();
+
+//		pixmap.setColor(Color.RED);
+//		pixmap.fillRectangle(0, 0, PLAYER_WIDTH, PLAYER_HEIGHT);
+//
+//		pixmap.setColor(Color.YELLOW);
+//		pixmap.fillRectangle(0, PLAYER_HEIGHT / 8, PLAYER_WIDTH, 6 * PLAYER_HEIGHT / 8);
+//
+//		pixmap.setColor(Color.WHITE);
+//		pixmap.fillRectangle(0, 3 * PLAYER_HEIGHT / 8, PLAYER_WIDTH, 2 * PLAYER_HEIGHT / 8);
+
 		TEXTURE = new Texture(pixmap);
 		pixmap.dispose();
 	}
