@@ -4,9 +4,11 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class MyGdxGame extends ApplicationAdapter {
   private OrthographicCamera orthographicCamera;
@@ -34,12 +36,31 @@ public class MyGdxGame extends ApplicationAdapter {
 
   @Override
   public void render() {
+    this.orthographicCamera.update();
+
     this.player1.moveIt();
 
     Gdx.gl.glClearColor(0, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-    this.orthographicCamera.update();
+    // draw center of field
+    final ShapeRenderer shapeRenderer = new ShapeRenderer();
+    shapeRenderer.setProjectionMatrix(orthographicCamera.combined);
+    shapeRenderer.setColor(Color.WHITE);
+
+    final float midX = Gdx.graphics.getWidth() / 2f;
+
+    shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+
+    float y = 0;
+    while (y < Gdx.graphics.getHeight()) {
+      shapeRenderer.line(midX, y, midX, y + 8);
+      y += 16;
+    }
+
+    shapeRenderer.end();
+
+    // draw players and ball
     batch.setProjectionMatrix(this.orthographicCamera.combined);
 
     batch.begin();
@@ -54,5 +75,11 @@ public class MyGdxGame extends ApplicationAdapter {
   public void dispose() {
     this.player1.dispose();
     this.ball.dispose();
+  }
+
+  @Override
+  public void resize(int width, int height) {
+    this.orthographicCamera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+    this.orthographicCamera.update();
   }
 }
