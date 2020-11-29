@@ -48,12 +48,12 @@ public class MyGdxGame extends ApplicationAdapter {
     shapeRenderer.setProjectionMatrix(orthographicCamera.combined);
     shapeRenderer.setColor(Color.WHITE);
 
-    final float midX = Gdx.graphics.getWidth() / 2f;
+    final float midX = this.orthographicCamera.viewportWidth / 2;
 
     shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 
     float y = 0;
-    while (y < Gdx.graphics.getHeight()) {
+    while (y < this.orthographicCamera.viewportHeight) {
       shapeRenderer.line(midX, y, midX, y + 8);
       y += 16;
     }
@@ -75,11 +75,5 @@ public class MyGdxGame extends ApplicationAdapter {
   public void dispose() {
     this.player1.dispose();
     this.ball.dispose();
-  }
-
-  @Override
-  public void resize(int width, int height) {
-    this.orthographicCamera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-    this.orthographicCamera.update();
   }
 }
