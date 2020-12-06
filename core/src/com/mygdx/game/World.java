@@ -57,10 +57,12 @@ public final class World {
 		} else if (ballBoundingRectangle.x < this.minX) {
 			ball.dx(-ball.dx());
 			ball.setPosition(this.minX + ball.dx(), ballBoundingRectangle.y);
-		} else if (ballBoundingRectangle.y >= this.maxY) {
+		} else if (ballBoundingRectangle.y + ballBoundingRectangle.getHeight() > this.maxY) {
 			ball.dy(-ball.dy());
-		} else if (ballBoundingRectangle.y <= this.minY) {
+			ball.setPosition(ballBoundingRectangle.x, this.maxY - ballBoundingRectangle.getHeight());
+		} else if (ballBoundingRectangle.y < this.minY) {
 			ball.dy(-ball.dy());
+			ball.setPosition(ballBoundingRectangle.x, this.minY);
 		}
 	}
 

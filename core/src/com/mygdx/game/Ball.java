@@ -43,7 +43,7 @@ public final class Ball {
 		this.sprite = new Sprite(BALL_TEXTURE);
 
 		this.x = (graphicsWidth / 2f - BALL_DIMENSION / 2f);
-		this.y = graphicsHeight - BALL_DIMENSION;
+		this.y = graphicsHeight - BALL_DIMENSION - BALL_DIMENSION;
 
 		this.dx = Math.random() > 0.5 ? BALL_STEP : -BALL_STEP;
 		this.dy = BALL_STEP;
