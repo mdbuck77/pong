@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Rectangle;
 public final class Player implements InputProcessor {
 	private static final int PLAYER_WIDTH = 10;
 	private static final int PLAYER_HEIGHT = 64;
-	private static final int PLAYER_STEP = 7;
+	private static final int PLAYER_STEP = 16;
 
 	private static final Texture TEXTURE;
 	static {
