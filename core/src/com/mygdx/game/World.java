@@ -47,21 +47,23 @@ public final class World {
 
 			final float v = (ballBoundingRectangle.y - playerBounds.y) / playerBounds.getHeight();
 
-			if (v < 1d/8d) {
-				// bottom edge of player
-				ball.dy(signum * Ball.BALL_STEP * 2);
-			} else if (v < 3d/8d) {
-				// bottom middle of paddle
-				ball.dy(signum * Ball.BALL_STEP);
-			} else if (v < 5d/8d) {
-				// center of paddle
-				ball.dy(0);
-			} else if (v < 7d/8d) {
-				// top middle of paddle
-				ball.dy(signum * Ball.BALL_STEP);
-			} else if (v < 1) {
-				// top of paddle
-				ball.dy(signum * Ball.BALL_STEP * 2);
+			if (v > 0) {
+				if (v < 1d / 8d) {
+					// bottom edge of player
+					ball.dy(signum * Ball.BALL_STEP * 2);
+				} else if (v < 3d / 8d) {
+					// bottom middle of paddle
+					ball.dy(signum * Ball.BALL_STEP);
+				} else if (v < 5d / 8d) {
+					// center of paddle
+					ball.dy(0);
+				} else if (v < 7d / 8d) {
+					// top middle of paddle
+					ball.dy(-signum * Ball.BALL_STEP);
+				} else if (v < 1) {
+					// top of paddle
+					ball.dy(-signum * Ball.BALL_STEP * 2);
+				}
 			}
 
 			ball.dx(-ball.dx());
