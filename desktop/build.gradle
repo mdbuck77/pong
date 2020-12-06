@@ -1,4 +1,5 @@
 apply plugin: "java"
+apply plugin: "application"
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 sourceSets.main.java.srcDirs = [ "src/" ]
@@ -7,33 +8,37 @@ sourceSets.main.resources.srcDirs = ["../core/assets"]
 project.ext.mainClassName = "com.mygdx.game.desktop.DesktopLauncher"
 project.ext.assetsDir = new File("../core/assets")
 
-task run(dependsOn: classes, type: JavaExec) {
-    main = project.mainClassName
-    classpath = sourceSets.main.runtimeClasspath
-    standardInput = System.in
-    workingDir = project.assetsDir
-    ignoreExitValue = true
+application {
+    mainClassName = 'com.mygdx.game.desktop.DesktopLauncher'
 }
 
-task debug(dependsOn: classes, type: JavaExec) {
-    main = project.mainClassName
-    classpath = sourceSets.main.runtimeClasspath
-    standardInput = System.in
-    workingDir = project.assetsDir
-    ignoreExitValue = true
-    debug = true
-}
+//task run(dependsOn: classes, type: JavaExec) {
+//    main = project.mainClassName
+//    classpath = sourceSets.main.runtimeClasspath
+//    standardInput = System.in
+//    workingDir = project.assetsDir
+//    ignoreExitValue = true
+//}
 
-task dist(type: Jar) {
-    manifest {
-        attributes 'Main-Class': project.mainClassName
-    }
-    dependsOn configurations.runtimeClasspath
-    from {
-        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-    with jar
-}
+//task debug(dependsOn: classes, type: JavaExec) {
+//    main = project.mainClassName
+//    classpath = sourceSets.main.runtimeClasspath
+//    standardInput = System.in
+//    workingDir = project.assetsDir
+//    ignoreExitValue = true
+//    debug = true
+//}
+
+//task dist(type: Jar) {
+//    manifest {
+//        attributes 'Main-Class': project.mainClassName
+//    }
+//    dependsOn configurations.runtimeClasspath
+//    from {
+//        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+//    }
+//    with jar
+//}
 
 
-dist.dependsOn classes
+//dist.dependsOn classes
