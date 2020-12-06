@@ -41,7 +41,7 @@ public final class World {
 		final Rectangle playerBounds = thePlayer.boundingRectangle();
 
 		if (ballBoundingRectangle.overlaps(playerBounds)) {
-			this.collisionSound.play();
+//			this.collisionSound.play();
 
 			final float signum = Math.signum(ball.dx());
 
@@ -70,18 +70,18 @@ public final class World {
 
 		} else if (ballBoundingRectangle.x + ballBoundingRectangle.getWidth() - 1 > this.maxX) {
 			this.player1.score();
-			this.scoreSound.play();
+//			this.scoreSound.play();
 			ball.restart();
 		} else if (ballBoundingRectangle.x < this.minX) {
 			this.player2.score();
-			this.scoreSound.play();
+//			this.scoreSound.play();
 			ball.restart();
 		} else if (ballBoundingRectangle.y + ballBoundingRectangle.getHeight() > this.maxY) {
-			this.collisionSound.setPitch(this.collisionSound.play(), 0.5f);
+//			this.collisionSound.setPitch(this.collisionSound.play(), 0.5f);
 			ball.dy(-ball.dy());
 			ball.setPosition(ballBoundingRectangle.x, this.maxY - ballBoundingRectangle.getHeight());
 		} else if (ballBoundingRectangle.y < this.minY) {
-			this.collisionSound.setPitch(this.collisionSound.play(), 0.5f);
+//			this.collisionSound.setPitch(this.collisionSound.play(), 0.5f);
 			ball.dy(-ball.dy());
 			ball.setPosition(ballBoundingRectangle.x, this.minY);
 		}

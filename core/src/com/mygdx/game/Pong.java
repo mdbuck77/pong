@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public class MyGdxGame extends ApplicationAdapter {
+public class Pong extends ApplicationAdapter {
   private static final float DIGIT_WIDTH = 16;
   private static final float DIGIT_HEIGHT = DIGIT_WIDTH * 2;
 
