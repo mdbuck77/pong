@@ -17,7 +17,6 @@ public class MyGdxGame extends ApplicationAdapter {
   private Player player1;
   public static final float DIGIT_WIDTH = 16;
   public static final float DIGIT_HEIGHT = DIGIT_WIDTH * 2;
-  public static final float LINE_WIDTH = 4;
 
   @Override
   public void create() {
