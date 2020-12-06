@@ -25,7 +25,7 @@ public class Pong extends ApplicationAdapter {
 
   @Override
   public void create() {
-    this.collisionSound = Gdx.audio.newSound(Gdx.files.internal("collision.wav"));
+    this.collisionSound = Gdx.audio.newSound(Gdx.files.internal("collision-sound.wav"));
     this.scoreSound = Gdx.audio.newSound(Gdx.files.internal("score-sound.wav"));
 
     int graphicsWidth = Gdx.graphics.getWidth();
