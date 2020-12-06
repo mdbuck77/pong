@@ -27,20 +27,20 @@ public final class World {
 		if (ballBoundingRectangle.overlaps(playerBounds)) {
 			// left player
 
-			float v = (ballBoundingRectangle.y + ballBoundingRectangle.getHeight() / 2 - playerBounds.y) / playerBounds.height;
+			final float v = (ballBoundingRectangle.y - playerBounds.y) / playerBounds.getHeight();
 
 			if (v < 1d/8d) {
 				// bottom edge of player
 				ball.dy(-Ball.BALL_STEP * 2);
 			} else if (v < 3d/8d) {
 				// bottom middle of paddle
-				ball.dy(-Ball.BALL_STEP * 1.5f);
+				ball.dy(-Ball.BALL_STEP);
 			} else if (v < 5d/8d) {
 				// center of paddle
 				ball.dy(0);
 			} else if (v < 7d/8d) {
 				// top middle of paddle
-				ball.dy(Ball.BALL_STEP * 1.5f);
+				ball.dy(Ball.BALL_STEP);
 			} else if (v < 1) {
 				// top of paddle
 				ball.dy(Ball.BALL_STEP * 2);
