@@ -11,26 +11,29 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class MyGdxGame extends ApplicationAdapter {
+  private static final float DIGIT_WIDTH = 16;
+  private static final float DIGIT_HEIGHT = DIGIT_WIDTH * 2;
+
   private OrthographicCamera orthographicCamera;
   private SpriteBatch batch;
   private Ball ball;
   private Player player1;
-  public static final float DIGIT_WIDTH = 16;
-  public static final float DIGIT_HEIGHT = DIGIT_WIDTH * 2;
+  private Player player2;
 
   @Override
   public void create() {
     int graphicsWidth = Gdx.graphics.getWidth();
     int graphicsHeight = Gdx.graphics.getHeight();
 
-    this.player1 = new Player(Input.Keys.W, Input.Keys.S, graphicsHeight);
+    this.player1 = new Player(Input.Keys.W, Input.Keys.S, graphicsHeight, 0);
+    this.player2 = new Player(Input.Keys.I, Input.Keys.K, graphicsHeight, graphicsWidth - 10);
 
-    Gdx.input.setInputProcessor(new InputMultiplexer(player1));
+    Gdx.input.setInputProcessor(new InputMultiplexer(player1, player2));
 
     this.orthographicCamera = new OrthographicCamera(graphicsWidth, graphicsHeight);
     this.orthographicCamera.translate(graphicsWidth / 2f, graphicsHeight / 2f);
 
-    final World world = new World(0, 0, graphicsWidth - 1, graphicsHeight - 1, this.player1);
+    final World world = new World(0, 0, graphicsWidth - 1, graphicsHeight - 1, this.player1, player2);
     this.ball = new Ball(world, graphicsWidth, graphicsHeight);
 
     this.batch = new SpriteBatch();
@@ -41,12 +44,14 @@ public class MyGdxGame extends ApplicationAdapter {
     this.orthographicCamera.update();
 
     this.player1.moveIt();
+    this.player2.moveIt();
 
     Gdx.gl.glClearColor(0, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
     // draw player 1's score
     drawScore(this.player1.getScore(), this.orthographicCamera.viewportWidth / 4);
+    drawScore(this.player2.getScore(), 3f * this.orthographicCamera.viewportWidth / 4);
 
     // draw center of field
     final ShapeRenderer shapeRenderer = new ShapeRenderer();
@@ -72,6 +77,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
     ball.draw(this.batch);
     player1.draw(this.batch);
+    player2.draw(this.batch);
 
     batch.end();
   }
@@ -175,6 +181,7 @@ public class MyGdxGame extends ApplicationAdapter {
   @Override
   public void dispose() {
     this.player1.dispose();
+    this.player2.dispose();
     this.ball.dispose();
   }
 }

@@ -7,43 +7,54 @@ public final class World {
 	private final int minY;
 	private final int maxX;
 	private final int maxY;
-	private final Player player;
+	private final Player player1;
+	private final Player player2;
 
-	public World(int minX, int minY, int maxX, int maxy, Player player) {
+	public World(int minX, int minY, int maxX, int maxy, Player player1, Player player2) {
 		this.minX = minX;
 		this.minY = minY;
 		this.maxX = maxX;
 		this.maxY = maxy;
-		this.player = player;
+		this.player1 = player1;
+		this.player2 = player2;
 	}
 
 	public void setPosition(final Ball ball, float newX, float newY) {
 		ball.setPosition(newX, newY);
 
+		final Player thePlayer;
+		if (ball.dx() < 0) {
+			// only need to check for collisions with player 1
+			thePlayer = this.player1;
+		} else {
+			// only need to check for collisions with player 2
+			thePlayer = this.player2;
+		}
+
 		final Rectangle ballBoundingRectangle = ball.boundingRectangle();
 
-		final Rectangle playerBounds = player.boundingRectangle();
+		final Rectangle playerBounds = thePlayer.boundingRectangle();
 
 		if (ballBoundingRectangle.overlaps(playerBounds)) {
-			// left player
+			final float signum = Math.signum(ball.dx());
 
 			final float v = (ballBoundingRectangle.y - playerBounds.y) / playerBounds.getHeight();
 
 			if (v < 1d/8d) {
 				// bottom edge of player
-				ball.dy(-Ball.BALL_STEP * 2);
+				ball.dy(signum * Ball.BALL_STEP * 2);
 			} else if (v < 3d/8d) {
 				// bottom middle of paddle
-				ball.dy(-Ball.BALL_STEP);
+				ball.dy(signum * Ball.BALL_STEP);
 			} else if (v < 5d/8d) {
 				// center of paddle
 				ball.dy(0);
 			} else if (v < 7d/8d) {
 				// top middle of paddle
-				ball.dy(Ball.BALL_STEP);
+				ball.dy(signum * Ball.BALL_STEP);
 			} else if (v < 1) {
 				// top of paddle
-				ball.dy(Ball.BALL_STEP * 2);
+				ball.dy(signum * Ball.BALL_STEP * 2);
 			}
 
 			ball.dx(-ball.dx());
@@ -53,10 +64,11 @@ public final class World {
 		} else if (ballBoundingRectangle.x + ballBoundingRectangle.getWidth() - 1 > this.maxX) {
 			ball.dx(-ball.dx());
 			ball.setPosition(this.maxX - playerBounds.width + ball.dx(), ballBoundingRectangle.y);
-			this.player.score();
+			this.player1.score();
 		} else if (ballBoundingRectangle.x < this.minX) {
 			ball.dx(-ball.dx());
 			ball.setPosition(this.minX + ball.dx(), ballBoundingRectangle.y);
+			this.player2.score();
 		} else if (ballBoundingRectangle.y + ballBoundingRectangle.getHeight() > this.maxY) {
 			ball.dy(-ball.dy());
 			ball.setPosition(ballBoundingRectangle.x, this.maxY - ballBoundingRectangle.getHeight());

@@ -41,12 +41,13 @@ public final class Player implements InputProcessor {
 	private Direction direction;
 	private int score;
 
-	public Player(int upKey, int dnKey, int screenHeight) {
+	public Player(int upKey, int dnKey, int screenHeight, float x) {
 		this.upKey = upKey;
 		this.dnKey = dnKey;
 		this.maxY = screenHeight - TEXTURE.getHeight();
 		this.direction = Direction.NEUTRAL;
 		this.sprite = new Sprite(TEXTURE);
+		this.sprite.setX(x);
 		this.sprite.setY(screenHeight / 2f - TEXTURE.getHeight() / 2f);
 //		this.score = 9;
 	}
@@ -103,7 +104,7 @@ public final class Player implements InputProcessor {
 	public boolean keyUp(int keycode) {
 		// todo: handle case with multiple keys down and up (e.g. 'w' down, then 's' down then 'w' up
 		this.direction = Direction.NEUTRAL;
-		return true;
+		return false;
 	}
 
 	@Override
