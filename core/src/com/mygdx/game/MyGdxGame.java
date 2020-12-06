@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -19,9 +20,14 @@ public class MyGdxGame extends ApplicationAdapter {
   private Ball ball;
   private Player player1;
   private Player player2;
+  private Sound collisionSound;
+  private Sound scoreSound;
 
   @Override
   public void create() {
+    this.collisionSound = Gdx.audio.newSound(Gdx.files.internal("collision.wav"));
+    this.scoreSound = Gdx.audio.newSound(Gdx.files.internal("score-sound.wav"));
+
     int graphicsWidth = Gdx.graphics.getWidth();
     int graphicsHeight = Gdx.graphics.getHeight();
 
@@ -33,7 +39,7 @@ public class MyGdxGame extends ApplicationAdapter {
     this.orthographicCamera = new OrthographicCamera(graphicsWidth, graphicsHeight);
     this.orthographicCamera.translate(graphicsWidth / 2f, graphicsHeight / 2f);
 
-    final World world = new World(0, 0, graphicsWidth - 1, graphicsHeight - 1, this.player1, player2);
+    final World world = new World(0, 0, graphicsWidth - 1, graphicsHeight - 1, this.player1, player2, collisionSound, scoreSound);
     this.ball = new Ball(world, graphicsWidth, graphicsHeight);
 
     this.batch = new SpriteBatch();
@@ -180,6 +186,8 @@ public class MyGdxGame extends ApplicationAdapter {
 
   @Override
   public void dispose() {
+    this.collisionSound.dispose();
+    this.scoreSound.dispose();
     this.player1.dispose();
     this.player2.dispose();
     this.ball.dispose();
