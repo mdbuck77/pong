@@ -69,15 +69,13 @@ public final class World {
 			ball.setPosition(playerBounds.x + playerBounds.width / 2, ballBoundingRectangle.y);
 
 		} else if (ballBoundingRectangle.x + ballBoundingRectangle.getWidth() - 1 > this.maxX) {
-			this.scoreSound.play();
-			ball.dx(-ball.dx());
-			ball.setPosition(this.maxX - playerBounds.width + ball.dx(), ballBoundingRectangle.y);
 			this.player1.score();
-		} else if (ballBoundingRectangle.x < this.minX) {
 			this.scoreSound.play();
-			ball.dx(-ball.dx());
-			ball.setPosition(this.minX + ball.dx(), ballBoundingRectangle.y);
+			ball.restart();
+		} else if (ballBoundingRectangle.x < this.minX) {
 			this.player2.score();
+			this.scoreSound.play();
+			ball.restart();
 		} else if (ballBoundingRectangle.y + ballBoundingRectangle.getHeight() > this.maxY) {
 			this.collisionSound.setPitch(this.collisionSound.play(), 0.5f);
 			ball.dy(-ball.dy());

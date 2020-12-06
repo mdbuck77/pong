@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.Timer;
 
 public final class Ball {
 	private static final float BALL_DIMENSION = 10;
-	public static final int BALL_STEP = 8;
+	public static final int BALL_STEP = 16;
 
 	private static final Pixmap BALL_PIXMAP;
 
@@ -30,6 +30,8 @@ public final class Ball {
 		BALL_PIXMAP.dispose();
 	}
 
+	private final float graphicsWidth;
+	private final float graphicsHeight;
 	private final Sprite sprite;
 	private final World world;
 
@@ -40,6 +42,8 @@ public final class Ball {
 
 	public Ball(World world, float graphicsWidth, float graphicsHeight) {
 		this.world = world;
+		this.graphicsWidth = graphicsWidth;
+		this.graphicsHeight = graphicsHeight;
 		this.sprite = new Sprite(BALL_TEXTURE);
 
 		this.x = (graphicsWidth / 2f - BALL_DIMENSION / 2f);
@@ -70,6 +74,14 @@ public final class Ball {
 	public void draw(final SpriteBatch spriteBatch) {
 		this.sprite.setPosition(this.x, this.y);
 		sprite.draw(spriteBatch);
+	}
+
+	public void restart() {
+		this.x = (graphicsWidth / 2f - BALL_DIMENSION / 2f);
+		this.y = graphicsHeight - BALL_DIMENSION - BALL_DIMENSION;
+
+		this.dx = Math.random() > 0.5 ? BALL_STEP : -BALL_STEP;
+		this.dy = BALL_STEP;
 	}
 
 	public void dispose() {
