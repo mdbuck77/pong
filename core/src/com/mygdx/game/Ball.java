@@ -9,8 +9,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Timer;
 
 public final class Ball {
-	private static final float BALL_DIMENSION = 10;
-	public static final int BALL_STEP = 16;
+	private static final float BALL_DIMENSION = 8;
+	public static final int BALL_STEP = 4;
 
 	private static final Pixmap BALL_PIXMAP;
 
@@ -58,7 +58,7 @@ public final class Ball {
 			public void run() {
 				Ball.this.world.setPosition(Ball.this, Ball.this.x + Ball.this.dx, Ball.this.y + Ball.this.dy);
 			}
-		}, 0, 0.1f);
+		}, 0, 1f / 60f);
 	}
 
 	public void setPosition(float x, float y) {
