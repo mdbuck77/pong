@@ -15,6 +15,9 @@ public class MyGdxGame extends ApplicationAdapter {
   private SpriteBatch batch;
   private Ball ball;
   private Player player1;
+  public static final float DIGIT_WIDTH = 16;
+  public static final float DIGIT_HEIGHT = DIGIT_WIDTH * 2;
+  public static final float LINE_WIDTH = 4;
 
   @Override
   public void create() {
@@ -43,6 +46,9 @@ public class MyGdxGame extends ApplicationAdapter {
     Gdx.gl.glClearColor(0, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+    // draw player 1's score
+    drawScore(this.player1.getScore(), this.orthographicCamera.viewportWidth / 4);
+
     // draw center of field
     final ShapeRenderer shapeRenderer = new ShapeRenderer();
     shapeRenderer.setProjectionMatrix(orthographicCamera.combined);
@@ -69,6 +75,102 @@ public class MyGdxGame extends ApplicationAdapter {
     player1.draw(this.batch);
 
     batch.end();
+  }
+
+  private void drawScore(final int score, final float midX, final ShapeRenderer shapeRenderer) {
+    switch (score) {
+      case 0:
+        shapeRenderer.rectLine(midX - DIGIT_WIDTH / 2,            0, midX + DIGIT_WIDTH / 2,            0, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX + DIGIT_WIDTH / 2,            0, midX + DIGIT_WIDTH / 2, DIGIT_HEIGHT, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX + DIGIT_WIDTH / 2, DIGIT_HEIGHT, midX - DIGIT_WIDTH / 2, DIGIT_HEIGHT, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX - DIGIT_WIDTH / 2, DIGIT_HEIGHT, midX - DIGIT_WIDTH / 2,            0, 4, Color.WHITE, Color.WHITE);
+        break;
+
+      case 1:
+        shapeRenderer.rect(midX + DIGIT_WIDTH / 2f, 0f, 4, DIGIT_HEIGHT, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE);
+        break;
+
+      case 2:
+        shapeRenderer.rectLine(midX - DIGIT_WIDTH / 2, DIGIT_HEIGHT, midX + DIGIT_WIDTH / 2, DIGIT_HEIGHT, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX + DIGIT_WIDTH / 2, DIGIT_HEIGHT, midX + DIGIT_WIDTH / 2, DIGIT_HEIGHT - DIGIT_HEIGHT / 2f, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX + DIGIT_WIDTH / 2, DIGIT_HEIGHT - DIGIT_HEIGHT / 2f, midX - DIGIT_WIDTH / 2, DIGIT_HEIGHT - DIGIT_HEIGHT / 2f, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX - DIGIT_WIDTH / 2, DIGIT_HEIGHT - DIGIT_HEIGHT / 2f, midX - DIGIT_WIDTH / 2, 0, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX - DIGIT_WIDTH / 2, 0, midX + DIGIT_WIDTH / 2, 0, 4, Color.WHITE, Color.WHITE);
+        break;
+
+      case 3:
+        shapeRenderer.rectLine(midX - DIGIT_WIDTH / 2, DIGIT_HEIGHT, midX + DIGIT_WIDTH / 2, DIGIT_HEIGHT, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX + DIGIT_WIDTH / 2, DIGIT_HEIGHT, midX + DIGIT_WIDTH / 2, 0, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX + DIGIT_WIDTH / 2, 0, midX - DIGIT_WIDTH / 2, 0, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX + DIGIT_WIDTH / 2, DIGIT_HEIGHT / 2, midX - DIGIT_WIDTH / 2, DIGIT_HEIGHT / 2, 4, Color.WHITE, Color.WHITE);
+        break;
+
+      case 4:
+        shapeRenderer.rectLine(midX - DIGIT_WIDTH / 2, DIGIT_HEIGHT, midX - DIGIT_WIDTH / 2, DIGIT_HEIGHT / 2, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX - DIGIT_WIDTH / 2, DIGIT_HEIGHT / 2, midX + DIGIT_WIDTH / 2, DIGIT_HEIGHT / 2, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX + DIGIT_WIDTH / 2, DIGIT_HEIGHT, midX + DIGIT_WIDTH / 2, 0, 4, Color.WHITE, Color.WHITE);
+        break;
+
+      case 5:
+        shapeRenderer.rectLine(midX + DIGIT_WIDTH / 2, DIGIT_HEIGHT, midX - DIGIT_WIDTH / 2, DIGIT_HEIGHT, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX - DIGIT_WIDTH / 2, DIGIT_HEIGHT, midX - DIGIT_WIDTH / 2, DIGIT_HEIGHT / 2, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX - DIGIT_WIDTH / 2, DIGIT_HEIGHT / 2, midX + DIGIT_WIDTH / 2, DIGIT_HEIGHT / 2, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX + DIGIT_WIDTH / 2, DIGIT_HEIGHT / 2, midX + DIGIT_WIDTH / 2, 0, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX + DIGIT_WIDTH / 2, 0, midX - DIGIT_WIDTH / 2, 0, 4, Color.WHITE, Color.WHITE);
+        break;
+
+      case 6:
+        shapeRenderer.rectLine(midX + DIGIT_WIDTH / 2, DIGIT_HEIGHT, midX - DIGIT_WIDTH / 2, DIGIT_HEIGHT, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX - DIGIT_WIDTH / 2, DIGIT_HEIGHT, midX - DIGIT_WIDTH / 2, 0, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX - DIGIT_WIDTH / 2, 0, midX + DIGIT_WIDTH / 2, 0, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX + DIGIT_WIDTH / 2, 0, midX + DIGIT_WIDTH / 2, DIGIT_HEIGHT / 2, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX + DIGIT_WIDTH / 2, DIGIT_HEIGHT / 2, midX - DIGIT_WIDTH / 2, DIGIT_HEIGHT / 2, 4, Color.WHITE, Color.WHITE);
+        break;
+
+      case 7:
+        shapeRenderer.rectLine(midX - DIGIT_WIDTH / 2, DIGIT_HEIGHT, midX + DIGIT_WIDTH / 2, DIGIT_HEIGHT, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX + DIGIT_WIDTH / 2, DIGIT_HEIGHT, midX + DIGIT_WIDTH / 2, 0, 4, Color.WHITE, Color.WHITE);
+        break;
+
+      case 8:
+        shapeRenderer.rectLine(midX - DIGIT_WIDTH / 2,           0, midX + DIGIT_WIDTH / 2,           0, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX + DIGIT_WIDTH / 2,           0, midX + DIGIT_WIDTH / 2, DIGIT_HEIGHT, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX + DIGIT_WIDTH / 2, DIGIT_HEIGHT, midX - DIGIT_WIDTH / 2, DIGIT_HEIGHT, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX - DIGIT_WIDTH / 2, DIGIT_HEIGHT, midX - DIGIT_WIDTH / 2,           0, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX + DIGIT_WIDTH / 2, DIGIT_HEIGHT / 2, midX - DIGIT_WIDTH / 2, DIGIT_HEIGHT / 2, 4, Color.WHITE, Color.WHITE);
+        break;
+
+      case 9:
+        shapeRenderer.rectLine(midX + DIGIT_WIDTH / 2, DIGIT_HEIGHT / 2, midX - DIGIT_WIDTH / 2, DIGIT_HEIGHT / 2, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX - DIGIT_WIDTH / 2, DIGIT_HEIGHT / 2, midX - DIGIT_WIDTH / 2, DIGIT_HEIGHT, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX - DIGIT_WIDTH / 2, DIGIT_HEIGHT, midX + DIGIT_WIDTH / 2, DIGIT_HEIGHT, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX + DIGIT_WIDTH / 2, DIGIT_HEIGHT, midX + DIGIT_WIDTH / 2, 0, 4, Color.WHITE, Color.WHITE);
+        shapeRenderer.rectLine(midX + DIGIT_WIDTH / 2, 0, midX - DIGIT_WIDTH / 2, 0, 4, Color.WHITE, Color.WHITE);
+        break;
+
+      default:
+        final String strScore = String.valueOf(score);
+        float newMidX = midX - (DIGIT_WIDTH + 10) * strScore.length() / 2f;
+        for (int i = 0, len = strScore.length(); i < len; ++i) {
+          final char c = strScore.charAt(i);
+          drawScore(Integer.parseInt(Character.toString(c)), newMidX);
+          newMidX += DIGIT_WIDTH + 10;
+        }
+        break;
+    }
+  }
+
+  private void drawScore(final int score, final float midX) {
+    final ShapeRenderer shapeRenderer = new ShapeRenderer();
+    shapeRenderer.setProjectionMatrix(orthographicCamera.combined);
+    shapeRenderer.translate(0, orthographicCamera.viewportHeight - DIGIT_HEIGHT - 10, 0);
+    shapeRenderer.setColor(Color.WHITE);
+
+    shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+
+    drawScore(score, midX, shapeRenderer);
+
+    shapeRenderer.end();
   }
 
   @Override

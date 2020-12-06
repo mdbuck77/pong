@@ -19,15 +19,6 @@ public final class Player implements InputProcessor {
 		pixmap.setColor(Color.WHITE);
 		pixmap.fill();
 
-//		pixmap.setColor(Color.RED);
-//		pixmap.fillRectangle(0, 0, PLAYER_WIDTH, PLAYER_HEIGHT);
-//
-//		pixmap.setColor(Color.YELLOW);
-//		pixmap.fillRectangle(0, PLAYER_HEIGHT / 8, PLAYER_WIDTH, 6 * PLAYER_HEIGHT / 8);
-//
-//		pixmap.setColor(Color.WHITE);
-//		pixmap.fillRectangle(0, 3 * PLAYER_HEIGHT / 8, PLAYER_WIDTH, 2 * PLAYER_HEIGHT / 8);
-
 		TEXTURE = new Texture(pixmap);
 		pixmap.dispose();
 	}
@@ -48,6 +39,7 @@ public final class Player implements InputProcessor {
 	private final int maxY;
 
 	private Direction direction;
+	private int score;
 
 	public Player(int upKey, int dnKey, int screenHeight) {
 		this.upKey = upKey;
@@ -56,6 +48,7 @@ public final class Player implements InputProcessor {
 		this.direction = Direction.NEUTRAL;
 		this.sprite = new Sprite(TEXTURE);
 		this.sprite.setY(screenHeight / 2f - TEXTURE.getHeight() / 2f);
+//		this.score = 9;
 	}
 
 	public void draw(final SpriteBatch batch) {
@@ -64,6 +57,27 @@ public final class Player implements InputProcessor {
 
 	public void dispose() {
 		TEXTURE.dispose();
+	}
+
+	public void moveIt() {
+		switch (this.direction) {
+			case UP:
+				keyDown(this.upKey);
+				break;
+			case DOWN:
+				keyDown(this.dnKey);
+				break;
+			default:
+				// do nothing
+		}
+	}
+
+	public void score() {
+		++this.score;
+	}
+
+	public int getScore() {
+		return this.score;
 	}
 
 	@Override
@@ -83,19 +97,6 @@ public final class Player implements InputProcessor {
 		}
 
 		return false;
-	}
-
-	public void moveIt() {
-		switch (this.direction) {
-			case UP:
-				keyDown(this.upKey);
-				break;
-			case DOWN:
-				keyDown(this.dnKey);
-				break;
-			default:
-				// do nothing
-		}
 	}
 
 	@Override

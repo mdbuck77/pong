@@ -53,6 +53,7 @@ public final class World {
 		} else if (ballBoundingRectangle.x + ballBoundingRectangle.getWidth() - 1 > this.maxX) {
 			ball.dx(-ball.dx());
 			ball.setPosition(this.maxX - playerBounds.width + ball.dx(), ballBoundingRectangle.y);
+			this.player.score();
 		} else if (ballBoundingRectangle.x < this.minX) {
 			ball.dx(-ball.dx());
 			ball.setPosition(this.minX + ball.dx(), ballBoundingRectangle.y);
